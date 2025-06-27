@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+
+.light {
+  /* for text */
+  --text-white: #ffffff;
+  --text-black: #000000;
+  --text-gray: #667085;
+  --text-dark-gray: #4a505c;
+  --text-date-color: #6941c6;
+
+  /* for background */
+  --bg-white: #ffffff;
+  --bg-black: #000000;
+  --bg-gray: #f3f4f6;
+
+  /* for button */
+  --button-bg: #6941c6;
+
+}
+.dark {
+  /* for text */
+  --text-white: #000000;
+  --text-black: #ffffff;
+  --text-gray: #d1d5db;
+  --text-dark-gray: #c9d0df;
+  --text-date-color: #764adf;
+
+  /* for background */
+  --bg-white: #090d1f;
+  --bg-black: #ffffff;
+  --bg-gray: #161c2c;
+
+  /* for button */
+  --button-bg: #6941c6;
+
+}
+@theme {
+  --color-TextWhite: var(--text-white);
+  --color-TextBlack: var(--text-black);
+  --color-TextGray: var(--text-gray);
+  --color-TextDarkGray: var(--text-dark-gray);
+  --color-TextDateColor: var(--text-date-color);
+
+  --color-BGWhite: var(--bg-white);
+  --color-BGBlack: var(--bg-black);
+  --color-BGGray: var(--bg-gray);
+  --color-BGLightGreen: var(--bg-light-green);
+
+  --color-ButttonBG: var(--button-bg)
+}
