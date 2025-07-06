@@ -49,7 +49,7 @@ const Navber = () => {
   };
   return (
     <>
-      <nav className="flex items-center w-full justify-between bg-BGGray py-3 px-15">
+      <nav className="flex items-center w-full justify-between bg-transparent py-3 px-15">
         <h2 className="text-TextBlack text-2xl font-bold">
           {user ? user.username : "Not Found"}
         </h2>

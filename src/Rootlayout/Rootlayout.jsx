@@ -7,7 +7,7 @@ const Rootlayout = () => {
   return (
     <>
       <div>
-        <div className="sticky top-0 left-0">
+        <div className="w-full absolute top-0 left-0 z-50">
           <Navber />
         </div>
         <div>
