@@ -68,7 +68,7 @@ const ProfileDropdown = () => {
       />
       <button
         onClick={() => setOpen(!open)}
-        className="p-3 rounded-full bg-BGGray text-TextBlack text-xl cursor-pointer"
+        className="p-3 rounded-full bg-BGGray text-TextBlack text-xl cursor-pointer sm:hidden"
       >
         {open ? <RxCross2 /> : <IoReorderThree />}
       </button>
