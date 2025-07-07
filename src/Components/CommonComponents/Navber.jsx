@@ -6,12 +6,10 @@ import { UserContext } from "../../Context/UserContext";
 import { IoIosCreate } from "react-icons/io";
 import { IoLogOut } from "react-icons/io5";
 import { getAuth, signOut } from "firebase/auth";
+import ProfileDropdown from "../NavberComponents/ProfileDropdown";
 
 const Navber = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const { user, loading } = useContext(UserContext);
-  const auth = getAuth();
-  const navigate = useNavigate();
 
   const navItem = [
     {
@@ -38,23 +36,14 @@ const Navber = () => {
     },
   ];
 
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        navigate("/login");
-      })
-      .catch((error) => {
-        console.error("Sign out error:", error);
-      });
-  };
   return (
     <>
-      <nav className="flex items-center w-full justify-between bg-transparent py-3 px-15">
-        <h2 className="text-TextBlack text-2xl font-bold">
-          {user ? user.username : "Not Found"}
+      <nav className="flex items-center w-full justify-between bg-transparent py-3 sm:px-15 px-5">
+        <h2 className="text-TextBlack text-xl sm:text-2xl font-bold">
+          Think<span className="text-TextDateColor">Zoon</span>
         </h2>
         <div className="flex gap-15 items-center">
-          <ul className="flex items-center gap-10">
+          <ul className="hidden sm:flex items-center gap-10 ">
             {navItem?.map((nav) => (
               <li key={nav.id} className="menuUnderLine">
                 <NavLink
@@ -72,36 +61,14 @@ const Navber = () => {
               </li>
             ))}
           </ul>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <button
-              onClick={handleLogout}
-              className="p-3 rounded-full bg-BGWhite text-TextDarkGray text-xl cursor-pointer"
-            >
-              <IoLogOut />
-            </button>
-            <button
-              className="p-3 rounded-full bg-BGWhite text-TextDarkGray text-xl cursor-pointer"
+              className="p-3 rounded-full bg-BGGray text-TextBlack text-xl cursor-pointer"
               onClick={toggleTheme}
             >
               {theme === "light" ? <MdLightMode /> : <MdDarkMode />}
             </button>
-            <Link
-              className=" p-3 rounded-full text-xl bg-BGWhite cursor-pointer text-TextDarkGray"
-              to={"/rootlayout/createblog"}
-            >
-              <IoIosCreate />
-            </Link>
-
-            <img
-              className="w-10 h-10 rounded-full cursor-pointer"
-              onClick={() => navigate("/rootlayout/profile")}
-              src={
-                user
-                  ? user.profile_picture
-                  : "https://www.w3schools.com/howto/img_avatar.png"
-              }
-              alt=""
-            />
+            <ProfileDropdown />
           </div>
         </div>
       </nav>
