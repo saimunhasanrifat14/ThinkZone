@@ -50,22 +50,22 @@ const MyBlog = () => {
               onClick={() => handleClick(item)}
               className="sm:w-[32%] w-full bg-BGGray rounded-xl cursor-pointer"
             >
-              <img className="w-full h-[250px]" src={item.blogBennar} alt="" />
+              <img className="w-full sm:h-[250px] h-[200px]" src={item.blogBennar} alt="" />
               <div className="p-5 flex flex-col gap-2">
-                <span className="text-TextDateColor font-semibold">
+                <span className="sm:text-sm text-xs text-TextDateColor font-semibold">
                   {formatCustomDate(item.uploadAt)}
                 </span>
-                <h3 className="text-2xl font-bold text-TextBlack">
+                <h3 className="sm:text-2xl text-xl font-bold text-TextBlack">
                   {item.blogTitle}
                 </h3>
-                <p className="text-sm text-TextGray line-clamp-2 ">{item.blogMessage}</p>
+                <p className="sm:text-sm text-xs text-TextGray line-clamp-2 ">{item.blogMessage}</p>
                 <div className="flex items-center gap-2">
                   <img
                     className="w-8 h-8 rounded-full"
                     src={item.uploaderProfile}
                     alt=""
                   />
-                  <h3 className="text-TextBlack font-semibold">
+                  <h3 className="sm:text-md text-sm text-TextBlack font-semibold">
                     {item.uploaderName}
                   </h3>
                 </div>

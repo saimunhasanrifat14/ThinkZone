@@ -61,7 +61,7 @@ const Navber = () => {
               </li>
             ))}
           </ul>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center sm:gap-4 gap-2">
             <button
               className="p-3 rounded-full bg-BGGray text-TextBlack text-xl cursor-pointer"
               onClick={toggleTheme}

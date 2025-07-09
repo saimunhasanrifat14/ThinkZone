@@ -6,11 +6,11 @@ import { Outlet } from "react-router-dom";
 const Rootlayout = () => {
   return (
     <>
-      <div>
+      <div className="bg-BGWhite">
         <div className="w-full absolute top-0 left-0 z-50">
           <Navber />
         </div>
-        <div>
+        <div className="w-full bg-BGWhite">
           <Outlet />
         </div>
         <div>

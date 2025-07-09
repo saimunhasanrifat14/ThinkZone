@@ -34,20 +34,20 @@ const Footer = () => {
   return (
     <>
       <footer className="bg-BGGray">
-        <div className="mx-auto w-full px-15 py-10 lg:py-8">
-          <div className="md:flex md:justify-between">
-            <div className="mb-6 md:mb-0">
-                <span className="self-center text-2xl font-semibold whitespace-nowrap text-TextBlack">
+        <div className="mx-auto w-full sm:px-15 px-5 sm:py-10 py-8">
+          <div className="flex flex-col sm:flex-row items-center sm:justify-between">
+            <div className="mb-4 sm:mb-0">
+                <span className="sm:text-2xl text-xl font-semibold text-TextBlack">
                   {user?.username}
                 </span>
             </div>
             <div className="">
-              <ul className="flex gap-6 items-start">
+              <ul className="flex gap-6 sm:items-start items-center">
                 {navItem?.map((nav) => (
                   <li key={nav.id} className="menuUnderLine">
                     <NavLink
                       to={`${nav.pathRoute}`}
-                      className="text-TextGray font-medium text-[17px] font-popins hover:underline"
+                      className="text-TextGray font-medium sm:text-md text-sm font-popins hover:underline"
                     >
                       {nav.item}
                     </NavLink>
@@ -58,7 +58,7 @@ const Footer = () => {
           </div>
           <hr className="my-3 border-gray-400 sm:mx-auto lg:my-8" />
           <div className="flex justify-center w-full">
-            <span className="text-sm text-TextGray sm:text-center">
+            <span className="sm:text-sm text-xs text-TextGray sm:text-center">
               © 2023{" "}
               <a href="https://flowbite.com/" className="hover:underline">
                 Flowbite™

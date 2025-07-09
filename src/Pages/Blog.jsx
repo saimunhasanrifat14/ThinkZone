@@ -48,7 +48,7 @@ const Blog = ({ Showmore = false }) => {
               onClick={() => handleClick(item)}
               className="sm:w-[32%] w-full bg-BGGray rounded-xl cursor-pointer"
             >
-              <img className="w-full h-[250px]" src={item.blogBennar} alt="" />
+              <img className="w-full sm:h-[250px] h-[200px]" src={item.blogBennar} alt="" />
               <div className="p-5 flex flex-col sm:gap-2 gap-1">
                 <span className="sm:text-sm text-xs text-TextDateColor font-semibold">
                   {formatCustomDate(item.uploadAt)}

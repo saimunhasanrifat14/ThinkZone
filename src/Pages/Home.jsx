@@ -68,7 +68,7 @@ const Home = () => {
           <h2 className="text-2xl text-TextBlack font-semibold pb-5">
             Recent blog posts
           </h2>
-          <div className="w-full sm:h-[470px] flex sm:flex-row flex-col justify-between items-center gap-8">
+          <div className="w-full sm:h-[470px] flex sm:flex-row flex-col justify-between items-center sm:gap-8 gap-4">
             <div className="sm:w-[50%] w-full h-full">
               {TherdLastBLogs && (
                 <div
@@ -82,13 +82,13 @@ const Home = () => {
                   />
                   <div className="w-full h-[40%] p-5 flex flex-col sm:gap-0 gap-2 justify-between">
                     <div className="flex flex-col gap-2">
-                      <span className="text-TextDateColor font-semibold">
+                      <span className="sm:text-sm text-xs text-TextDateColor font-semibold">
                         {formatCustomDate(TherdLastBLogs.uploadAt)}
                       </span>
-                      <h3 className="text-2xl font-bold text-TextBlack line-clamp-1">
+                      <h3 className="sm:text-2xl text-xl font-bold text-TextBlack line-clamp-1">
                         {TherdLastBLogs.blogTitle}
                       </h3>
-                      <p className="text-sm text-TextGray line-clamp-2">
+                      <p className="sm:text-sm text-xs text-TextGray line-clamp-2">
                         {TherdLastBLogs.blogMessage}
                       </p>
                     </div>
@@ -98,7 +98,7 @@ const Home = () => {
                         src={TherdLastBLogs.uploaderProfile}
                         alt=""
                       />
-                      <h3 className="text-TextBlack font-semibold">
+                      <h3 className="sm:text-md text-sm text-TextBlack font-semibold">
                         {TherdLastBLogs.uploaderName}
                       </h3>
                     </div>
@@ -113,25 +113,25 @@ const Home = () => {
                   className="w-full h-[47%] bg-BGGray rounded-xl flex gap-2 cursor-pointer"
                 >
                   <img className="w-[50%]" src={item.blogBennar} alt="" />
-                  <div className="w-[50%] px-3 py-6 flex flex-col justify-between">
-                    <div className="flex flex-col gap-2">
-                      <span className="text-TextDateColor text-sm font-semibold">
+                  <div className="w-[50%] px-3 sm:py-6 py-3 flex flex-col justify-between">
+                    <div className="flex flex-col sm:gap-2 gap-1">
+                      <span className="sm:text-sm text-xs text-TextDateColor font-semibold">
                         {formatCustomDate(item.uploadAt)}
                       </span>
-                      <h3 className="text-xl font-bold text-TextBlack line-clamp-1">
+                      <h3 className="sm:text-2xl text-md font-bold text-TextBlack line-clamp-1">
                         {item.blogTitle}
                       </h3>
-                      <p className="text-sm text-TextGray line-clamp-3">
+                      <p className="sm:text-sm text-xs text-TextGray sm:line-clamp-3 line-clamp-2">
                         {item.blogMessage}
                       </p>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 pt-4 sm:pt-0">
                       <img
                         className="w-6 h-6 rounded-full"
                         src={item.uploaderProfile}
                         alt=""
                       />
-                      <h3 className="text-TextBlack text-sm font-semibold">
+                      <h3 className=" sm:text-md text-TextBlack text-sm font-semibold">
                         {item.uploaderName}
                       </h3>
                     </div>
@@ -146,20 +146,20 @@ const Home = () => {
           <Blog Showmore={true} />
         </div>
         {/* for mobile size */}
-        <div className="block sm:hidden px-5">
+        <div className="block sm:hidden px-5 sm:pb-0 pb-6">
           {/* Heading */}
           <div className="flex items-center justify-between pb-5">
             <h2 className="text-2xl text-TextBlack font-semibold ">Blogs</h2>
             <div className="flex items-center gap-2">
               <button
                 ref={prevRef}
-                className="p-2 bg-BGGray text-TextDateColor rounded-full"
+                className="p-2 sm:text-md text-sm bg-BGGray text-TextDateColor rounded-full"
               >
                 <FaAngleLeft />
               </button>
               <button
                 ref={nextRef}
-                className="p-2 bg-BGGray text-TextDateColor rounded-full"
+                className="p-2 sm:text-md text-xs bg-BGGray text-TextDateColor rounded-full"
               >
                 <FaChevronRight />
               </button>
@@ -192,13 +192,13 @@ const Home = () => {
                     alt=""
                   />
                   <div className="p-5 flex flex-col gap-2">
-                    <span className="text-TextDateColor font-semibold">
+                    <span className="sm:text-sm text-xs text-TextDateColor font-semibold">
                       {formatCustomDate(item.uploadAt)}
                     </span>
-                    <h3 className="text-2xl font-bold text-TextBlack line-clamp-1">
+                    <h3 className="sm:text-2xl text-xl font-bold text-TextBlack line-clamp-1">
                       {item.blogTitle}
                     </h3>
-                    <p className="text-sm text-TextGray line-clamp-2">
+                    <p className="sm:text-sm text-xs text-TextGray line-clamp-2">
                       {item.blogMessage}
                     </p>
                     <div className="flex items-center gap-2 pt-2">
@@ -207,7 +207,7 @@ const Home = () => {
                         src={item.uploaderProfile}
                         alt=""
                       />
-                      <h3 className="text-TextBlack font-semibold">
+                      <h3 className="sm:text-md text-sm text-TextBlack font-semibold">
                         {item.uploaderName}
                       </h3>
                     </div>
@@ -221,7 +221,7 @@ const Home = () => {
           <div className="w-full flex justify-center mt-5">
             <Link
               to="/rootlayout/blog"
-              className="py-2 px-4 bg-ButttonBG rounded-md text-white flex items-center gap-2"
+              className="py-2 px-4 bg-ButttonBG text-sm sm:text-md rounded-md text-white flex items-center gap-2 font-semibold"
             >
               Show More{" "}
               <span className="mt-1">
