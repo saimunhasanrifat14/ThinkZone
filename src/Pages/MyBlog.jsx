@@ -40,15 +40,15 @@ const MyBlog = () => {
 
   return (
     <>
-      <div className="px-15 py-10 bg-BGWhite">
+      <div className="sm:px-15 px-5 sm:pb-10 pb-0 pt-20 bg-BGWhite">
         <h2 className="text-2xl text-TextBlack font-semibold pb-5">
           All My Blogs
         </h2>
-        <div className="w-full flex justify-between gap-7 flex-wrap mb-5">
+        <div className="w-full flex sm:flex-row flex-col justify-between sm:gap-7 gap-5 flex-wrap mb-5">
           {BLogs?.map((item) => (
             <div
               onClick={() => handleClick(item)}
-              className="w-[32%] bg-BGGray rounded-xl cursor-pointer"
+              className="sm:w-[32%] w-full bg-BGGray rounded-xl cursor-pointer"
             >
               <img className="w-full h-[250px]" src={item.blogBennar} alt="" />
               <div className="p-5 flex flex-col gap-2">

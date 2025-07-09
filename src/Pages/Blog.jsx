@@ -38,25 +38,25 @@ const Blog = ({ Showmore = false }) => {
   };
   return (
     <>
-      <div className="px-15 py-10 bg-BGWhite">
+      <div className="sm:px-15 px-5 sm:pb-10 pb-0 pt-20 bg-BGWhite">
         <h2 className="text-2xl text-TextBlack font-semibold pb-5">
           {Showmore ? "Blogs" : "All Blogs"}
         </h2>
-        <div className="w-full flex justify-between gap-7 flex-wrap">
+        <div className="w-full flex sm:flex-row flex-col justify-between sm:gap-7 gap-5 flex-wrap">
           {BLogs?.slice(0, Showmore ? 3 : BLogs.length).map((item) => (
             <div
               onClick={() => handleClick(item)}
-              className="w-[32%] bg-BGGray rounded-xl cursor-pointer"
+              className="sm:w-[32%] w-full bg-BGGray rounded-xl cursor-pointer"
             >
               <img className="w-full h-[250px]" src={item.blogBennar} alt="" />
-              <div className="p-5 flex flex-col gap-2">
-                <span className="text-TextDateColor font-semibold">
+              <div className="p-5 flex flex-col sm:gap-2 gap-1">
+                <span className="sm:text-sm text-xs text-TextDateColor font-semibold">
                   {formatCustomDate(item.uploadAt)}
                 </span>
-                <h3 className="text-2xl font-bold text-TextBlack line-clamp-1">
+                <h3 className="sm:text-2xl text-xl font-bold text-TextBlack line-clamp-1">
                   {item.blogTitle}
                 </h3>
-                <p className="text-sm text-TextGray line-clamp-2">
+                <p className="sm:text-sm text-xs text-TextGray line-clamp-2">
                   {item.blogMessage}
                 </p>
                 <div className="flex items-center gap-2 pt-2">
@@ -65,7 +65,7 @@ const Blog = ({ Showmore = false }) => {
                     src={item.uploaderProfile}
                     alt=""
                   />
-                  <h3 className="text-TextBlack font-semibold">
+                  <h3 className="sm:text-md text-sm text-TextBlack font-semibold">
                     {item.uploaderName}
                   </h3>
                 </div>

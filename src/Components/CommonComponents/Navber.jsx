@@ -40,7 +40,7 @@ const Navber = () => {
     <>
       <nav className="flex items-center w-full justify-between bg-transparent py-3 sm:px-15 px-5">
         <h2 className="text-TextBlack text-xl sm:text-2xl font-bold">
-          Think<span className="text-TextDateColor">Zoon</span>
+          Think<span className="text-TextDateColor">Zone</span>
         </h2>
         <div className="flex gap-15 items-center">
           <ul className="hidden sm:flex items-center gap-10 ">

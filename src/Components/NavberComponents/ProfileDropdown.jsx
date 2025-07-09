@@ -133,8 +133,8 @@ const ProfileDropdown = () => {
                   Settings
                 </button>
               </div>
-              <div className="border-t border-gray-400">
-                <ul className="sm:hidden flex items-start flex-col">
+              <div className="sm:hidden block border-t border-gray-400">
+                <ul className=" flex items-start flex-col">
                   {navItem?.map((nav) => (
                     <li key={nav.id} className="menuUnderLine w-full">
                       <NavLink
