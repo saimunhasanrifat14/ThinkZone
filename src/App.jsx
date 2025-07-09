@@ -9,6 +9,8 @@ import Rootlayout from "./Rootlayout/Rootlayout";
 import Profile from "./Pages/Profile";
 import MyBlog from "./Pages/MyBlog";
 import BlogDetails from "./Pages/BlogDetails";
+import TemplateOne from "./Components/CommonComponents/Templates/TemplateOne";
+import Templatetwo from "./Components/CommonComponents/Templates/Templatetwo";
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
           <Route path="createblog" element={<CreateBlog />} />
           <Route path="profile" element={<Profile />} />
           <Route path="blogdetails" element={<BlogDetails />} />
+          <Route path="templateone" element={<TemplateOne />} />
+          <Route path="templatetwo" element={<Templatetwo />} />
         </Route>
       </Routes>
     </Router>
