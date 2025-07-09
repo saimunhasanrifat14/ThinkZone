@@ -43,7 +43,7 @@ const HeroSection = () => {
                 <input
                   type="text"
                   placeholder="Search here..."
-                  className="px-4 sm:py-3 py-2 rounded-md  w-full sm:w-[330px]  bg-BGGray   text-TextGray  outline-none border  border-BGGray  focus:border-gray-500 transition-colors duration-300"
+                  className="px-4 sm:py-3 py-2 rounded-md  w-full sm:w-[330px]  bg-BGGray   text-TextGray  outline-none border  border-BGGray  focus:border-gray-500"
                 />
                 <button
                   aria-label="Search"

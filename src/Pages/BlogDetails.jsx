@@ -10,9 +10,9 @@ const BlogDetails = () => {
   }
   return (
     <>
-      <div className="w-full min-h-[710px] bg-BGWhite flex items-center justify-center">
-        <div className="w-[550px] flex flex-col items-center gap-4 py-10">
-          <h2 className="text-TextBlack text-5xl font-bold text-center">{blog.blogTitle}</h2>
+      <div className="w-full min-h-[710px] bg-BGWhite flex items-center justify-center pt-10 sm:pt-0">
+        <div className="w-[550px] flex flex-col items-center gap-4 py-10 px-4 sm:px-0">
+          <h2 className="text-TextBlack sm:text-5xl text-3xl font-bold text-center">{blog.blogTitle}</h2>
           <div className="flex items-center gap-2 pb-5">
             <img
               className="w-10 h-10 rounded-full"
