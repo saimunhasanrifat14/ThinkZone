@@ -76,7 +76,7 @@ const Home = () => {
                   className="w-full h-full bg-BGGray rounded-xl cursor-pointer"
                 >
                   <img
-                    className="w-full sm:h-[60%] h-[45%]"
+                    className="w-full sm:h-[60%] h-[45%] object-cover"
                     src={TherdLastBLogs.blogBennar}
                     alt=""
                   />
@@ -112,7 +112,11 @@ const Home = () => {
                   onClick={() => handleClick(item)}
                   className="w-full h-[47%] bg-BGGray rounded-xl flex gap-2 cursor-pointer"
                 >
-                  <img className="w-[50%]" src={item.blogBennar} alt="" />
+                  <img
+                    className="w-[50%] object-cover"
+                    src={item.blogBennar}
+                    alt=""
+                  />
                   <div className="w-[50%] px-3 sm:py-6 py-3 flex flex-col justify-between">
                     <div className="flex flex-col sm:gap-2 gap-1">
                       <span className="sm:text-sm text-xs text-TextDateColor font-semibold">

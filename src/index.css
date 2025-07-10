@@ -95,3 +95,20 @@
 }
 /* Content animation */
 
+/* search page animation */
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter-animation {
+  animation: fadeSlideIn 0.5s ease-in-out;
+}
+/* search page animation */
+

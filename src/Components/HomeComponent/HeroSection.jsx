@@ -1,17 +1,28 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DarkBg from "../../assets/heroBackground.png";
 import LightBg from "../../assets/heroBackground2.png";
 
 import { ThemeContext } from "../../Context/ThemeProvider";
 import { FaSearch } from "react-icons/fa";
+import { getDatabase, onValue, ref } from "firebase/database";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
   const { theme } = useContext(ThemeContext);
   const backgroundImage = theme === "dark" ? DarkBg : LightBg;
+  const navigate = useNavigate();
+  const [inputValue, setInputValue] = useState("");
 
   const handleSearch = (e) => {
-    alert("Search functionality is not implemented yet.");
     e.preventDefault();
+    const query = inputValue.trim().toLowerCase();
+    if (!query) {
+      setFilteredBlogs([]);
+      return;
+    }
+    navigate("/rootlayout/searchblogs", {
+      state: { query }, 
+    });
   };
 
   return (
@@ -42,11 +53,12 @@ const HeroSection = () => {
               >
                 <input
                   type="text"
-                  placeholder="Search here..."
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  placeholder="Search blogs..."
                   className="px-4 sm:py-3 py-2 rounded-md  w-full sm:w-[330px]  bg-BGGray   text-TextGray  outline-none border  border-BGGray  focus:border-gray-500"
                 />
                 <button
-                  aria-label="Search"
                   type="submit"
                   className="bg-BGBlack text-TextWhite px-3 sm:px-6 py-3 sm:py-4 rounded-md cursor-pointer"
                 >
@@ -54,7 +66,7 @@ const HeroSection = () => {
                 </button>
               </form>
             </div>
-            <p className="text-xs text-gray-400 mt-2">
+            <p className="text-xs text-gray-400 mt-1">
               Explore trending blogs by{" "}
               <span className="underline">keyword</span>,{" "}
               <span className="underline">title</span>, or{" "}
