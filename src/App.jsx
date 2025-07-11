@@ -12,6 +12,7 @@ import BlogDetails from "./Pages/BlogDetails";
 import TemplateOne from "./Components/CommonComponents/Templates/TemplateOne";
 import Templatetwo from "./Components/CommonComponents/Templates/Templatetwo";
 import SearchBlogs from "./Pages/SearchBlogs";
+import EmailVarification from "./Pages/EmailVarification";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="*" element={<Signup />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/EmailVarification" element={<EmailVarification />} />
         <Route path="/rootlayout" element={<Rootlayout />}>
           <Route path="home" element={<Home />} />
           <Route path="blog" element={<Blog />} />

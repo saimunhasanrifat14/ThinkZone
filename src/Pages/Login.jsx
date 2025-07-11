@@ -10,31 +10,6 @@ import {
 import { getDatabase, push, ref, set } from "firebase/database";
 
 const Login = () => {
-  const [eye, setEye] = useState(false);
-  const auth = getAuth();
-  const db = getDatabase();
-  const navigate = useNavigate();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  console.log("data form auth " , auth.currentUser);
-  
-  const onSubmit = (data) => {
-    const { email, password } = data;
-
-    signInWithEmailAndPassword(auth, email, password).then((userinfo) => {
-      console.log(userinfo);
-      if (auth.currentUser.emailVerified) {
-        navigate("/rootlayout/home");
-      } else {
-        navigate("/login");
-      }
-    });
-  };
-
   const inputDetails = [
     {
       id: 1,
@@ -52,18 +27,66 @@ const Login = () => {
     },
   ];
 
+  const [eye, setEye] = useState(false);
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState("");
+  const auth = getAuth();
+  const db = getDatabase();
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  /**
+   * todo : handleSubmit function implement
+   * @param data - Contains email and password.
+   * @description : This function is used to handle the submit event of the form.
+   */
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+    try {
+      setloading(true);
+      await signInWithEmailAndPassword(auth, email, password);
+
+      const user = auth.currentUser;
+
+      if (user.emailVerified) {
+        navigate("/rootlayout/home");
+      } else {
+        await sendEmailVerification(user);
+        navigate("/EmailVarification");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      if (error.code === "auth/network-request-failed") {
+        seterror("Network error! try again.");
+      } else if (error.code === "auth/invalid-email") {
+        seterror("Invalid email format.");
+      } else {
+        seterror("Something went wrong. Please try again.");
+      }
+    } finally {
+      setloading(false);
+    }
+  };
 
   return (
     <div className="w-full h-screen bg-BGWhite flex items-center justify-center">
-      <div className="w-[300px] sm:w-[380px] bg-BGWhite">
+      <div className="w-[330px] sm:w-[380px] bg-BGWhite">
         {/* Heading */}
         <div className="text-center mb-6">
           <h2 className="text-xl sm:text-2xl font-bold text-TextDarkGray">
             Welcome Back
           </h2>
-          <p className="text-gray-400 text-sm mt-1">
-            Login to continue using your account
-          </p>
+          {error ? (
+            <p className="text-red-400 text-sm mt-1">{error}</p>
+          ) : (
+            <p className="text-gray-400 text-sm mt-1">
+              Login to continue using your account
+            </p>
+          )}
         </div>
 
         {/* Form */}
@@ -114,7 +137,7 @@ const Login = () => {
             type="submit"
             className="w-full bg-ButttonBG text-white font-medium py-2 px-4 rounded-md cursor-pointer"
           >
-            Login
+            {loading ? "Loading" : "Login"}
           </button>
         </form>
 

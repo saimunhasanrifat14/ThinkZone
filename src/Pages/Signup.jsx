@@ -13,6 +13,8 @@ import { getDatabase, push, ref, set } from "firebase/database";
 
 const SignUp = () => {
   const [eye, setEye] = useState(false);
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState("");
   const auth = getAuth();
   const db = getDatabase();
   const navigate = useNavigate();
@@ -51,6 +53,7 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     const { email, fullName, password } = data;
     try {
+      setloading(true);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -68,25 +71,41 @@ const SignUp = () => {
         profile_picture: "https://www.w3schools.com/howto/img_avatar.png",
         uid: user.uid,
       });
-      navigate("/login");
-    } catch (error) {
-      console.log("Error:", error.message);
+      setloading(false);
+      navigate("/EmailVarification");
+      alert("please chack your email");
+    } catch (err) {
+      if (err.code === "auth/email-already-in-use") {
+        seterror("auth/email-already-in-use");
+      } else if (err.code === "auth/weak-password") {
+        seterror("Password should be at least 6 characters long.");
+      } else if (err.code === "auth/invalid-email") {
+        seterror("Please enter a valid email.");
+      } else {
+        seterror("Something went wrong. Please try again.");
+      }
+    } finally {
+      setloading(false);
     }
   };
 
   return (
     <div className="w-full h-screen bg-BGWhite relative">
-      {/* Form Section */}
       <div className="w-full h-screen flex items-center justify-center bg-BGWhite">
-        <div className="w-[350px] sm:w-[380px] bg-BGWhite">
+        <div className="w-[330px] sm:w-[380px] bg-BGWhite">
           {/* Heading */}
           <div className="text-center mb-6">
             <h2 className="text-xl sm:text-2xl font-bold text-TextDarkGray">
               Get started with easy registration
             </h2>
-            <p className="text-gray-400 text-sm mt-1">
-              Free register and enjoy it
-            </p>
+
+            {error ? (
+              <p className="text-red-400 text-sm mt-1">{error}</p>
+            ) : (
+              <p className="text-gray-400 text-sm mt-1">
+                Free register and enjoy it
+              </p>
+            )}
           </div>
 
           {/* Form */}
@@ -138,7 +157,7 @@ const SignUp = () => {
               type="submit"
               className="w-full bg-ButttonBG  text-white font-medium py-2 px-4 rounded-md cursor-pointer"
             >
-              Sign Up
+              {loading ? "Loading" : "Sign Up"}
             </button>
           </form>
 
