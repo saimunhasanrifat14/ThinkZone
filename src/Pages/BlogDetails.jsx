@@ -10,8 +10,8 @@ const BlogDetails = () => {
   }
   return (
     <>
-      <div className="w-full min-h-[710px] bg-BGWhite flex items-center justify-center pt-10 sm:pt-15">
-        <div className="w-[550px] flex flex-col items-center gap-4 py-10 px-4 sm:px-0">
+      <div className="w-full min-h-screen bg-BGWhite flex items-center justify-center pt-10 sm:pt-15">
+        <div className="w-[550px] flex flex-col items-center gap-4 py-10 px-4 sm:px-0 page-enter-animation">
           <h2 className="text-TextBlack sm:text-5xl text-3xl font-bold text-center">
             {blog?.blogTitle}
           </h2>

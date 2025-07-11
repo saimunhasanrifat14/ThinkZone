@@ -38,11 +38,11 @@ const Blog = ({ Showmore = false }) => {
   };
   return (
     <>
-      <div className="sm:px-15 px-5 sm:pb-10 pb-0 pt-20 bg-BGWhite">
+      <div className="w-full min-h-screen sm:px-15 px-5 sm:pb-10 pb-0 pt-20 bg-BGWhite">
         <h2 className="text-2xl text-TextBlack font-semibold pb-5">
           {Showmore ? "Blogs" : "All Blogs"}
         </h2>
-        <div className="w-full flex sm:flex-row flex-col justify-between sm:gap-7 gap-5 flex-wrap">
+        <div className="w-full flex sm:flex-row flex-col justify-between sm:gap-7 gap-5 flex-wrap page-enter-animation">
           {BLogs?.slice(0, Showmore ? 3 : BLogs.length).map((item) => (
             <div
               onClick={() => handleClick(item)}

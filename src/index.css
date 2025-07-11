@@ -108,7 +108,7 @@
 }
 
 .page-enter-animation {
-  animation: fadeSlideIn 0.5s ease-in-out;
+  animation: fadeSlideIn .8s ease-in-out;
 }
 /* search page animation */
 

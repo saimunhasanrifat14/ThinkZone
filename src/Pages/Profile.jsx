@@ -1,134 +1,134 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../Context/UserContext";
 import { getDatabase, ref, update } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import useUploadCloudinary from "../Hooks/useCloudinaryUpload";
+import { MdCreate } from "react-icons/md";
 
 const Profile = () => {
   const { user } = useContext(UserContext);
   const { uploadImage, loading, error } = useUploadCloudinary();
 
-  const [profile, setProfile] = useState(null);
   const [profileError, setProfileError] = useState("");
   const [saveLoading, setSaveLoading] = useState(false);
   const fileInputRef = useRef(null);
   const db = getDatabase();
   const auth = getAuth();
 
-  const handleInputChange = (event) => {
-    const file = event.target.files[0];
-    setProfile(file);
-    setProfileError("");
-  };
+  // for input value store
+  const [NewName, setNewName] = useState("");
+  const [NewBio, setNewBio] = useState("");
+  const [infosaveLoading, setinfosaveLoading] = useState(false);
+  const [err, seterr] = useState(false);
 
-  const handleUpdateProfile = async () => {
-    if (!profile) {
-      setProfileError("Please select a profile picture first.");
-      return;
+  useEffect(() => {
+    if (user) {
+      setNewName(user.username || "");
+      setNewBio(user.bio || "");
     }
+  }, [user]);
 
+  const handleUpdateProfile = async (profile) => {
     try {
+      setSaveLoading(true);
       const profileUrl = await uploadImage(profile);
       if (!profileUrl) throw new Error("Upload failed");
-
       const updateData = { profile_picture: profileUrl };
       await update(ref(db, `users/${user.userkey}`), updateData);
 
-      setSaveLoading(true);
-      setTimeout(() => {
-        setSaveLoading(false);
-      }, 2000);
-
-      setProfile(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
     } catch (err) {
-      console.error("Profile update error:", err);
       setProfileError("Something went wrong. Please try again.");
+    } finally {
+      setSaveLoading(false);
+    }
+  };
+
+  const handleSaveChange = async () => {
+    if (NewName == "") {
+      seterr("Name is requred");
+      return;
+    }
+    // update new data on firebase
+    let updateData = {
+      username: NewName,
+      bio: NewBio,
+    };
+    try {
+      await update(ref(db, `users/${user.userkey}`), updateData);
+      setinfosaveLoading(true);
+      setTimeout(() => {
+        setinfosaveLoading(false);
+      }, 1000);
+    } catch (error) {
+      console.log("error from updata data", error);
+    } finally {
     }
   };
 
   return (
-    <div className="p-40 flex items-center justify-between w-full h-[700px] bg-BGWhite">
-      <div className="flex gap-10 items-center">
-        <img
-          className="w-50 h-50 rounded-full border-2 border-gray-500"
-          src={
-            user?.profile_picture ||
-            "https://www.w3schools.com/howto/img_avatar.png"
-          }
-          alt="Profile"
-        />
-        <h2 className="text-[80px] font-bold text-TextBlack">
-          {user?.username || "Not Found"}
-        </h2>
-      </div>
-
-      <div className="flex flex-col gap-2 w-[300px]">
-        <div className="flex items-center justify-center w-full">
-          <label
-            htmlFor="file-upload"
-            className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-BGGray dark:border-gray-600 dark:hover:border-gray-500"
-          >
-            <div className="flex flex-col items-center justify-center pt-5 pb-6">
-              <svg
-                className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 16"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                />
-              </svg>
-              <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                <span className="font-semibold">Click to upload</span> or drag
-                and drop
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                SVG, PNG, JPG or GIF (MAX. 800x400px)
-              </p>
-              {profileError && (
-                <p className="text-red-500 text-sm text-center">
-                  {profileError}
-                </p>
-              )}
-              {/* Show selected file name */}
-              {profile && (
-                <p className="mt-2 text-sm text-gray-500">
-                  Selected file:{" "}
-                  <span className="font-semibold text-buttonsBG">
-                    {profile.name}
-                  </span>
-                </p>
+    <div className="sm:px-15 px-5 sm:pb-15 pb-5 pt-20 flex sm:flex-row flex-col gap-6 sm:justify-between w-full min-h-screen bg-BGWhite">
+      <div className="sm:w-[30%] w-full">
+        <div className="w-full flex flex-col items-center bg-BGGray p-5 rounded">
+          <div className="w-full flex flex-col gap-3 items-center  relative">
+            {profileError && (
+              <p className="text-red-500 text-sm text-center">{profileError}</p>
+            )}
+            <div className="w-35 h-35 relative">
+              <img
+                className="w-full h-full object-cover rounded-full"
+                src={
+                  user?.profile_picture ||
+                  "https://www.w3schools.com/howto/img_avatar.png"
+                }
+                alt="Profile"
+              />
+              {saveLoading ? (
+                <span className="w-full h-full bg-[#00000084] text-white font-semibold rounded-full absolute top-0 left-0 flex items-center justify-center">
+                  Loading...
+                </span>
+              ) : (
+                ""
               )}
             </div>
+            <span
+              onClick={() =>
+                fileInputRef.current && fileInputRef.current.click()
+              }
+              className=" absolute sm:right-28 right-18 sm:top-4 top-4 p-2 text-xl rounded-full bg-ButttonBG text-white cursor-pointer"
+            >
+              <MdCreate />
+            </span>
+            <input
+              className="px-2 text-center text-3xl font-bold text-TextBlack bg-transparent outline-none border-2 border-gray-500 rounded-md py-1 w-full"
+              value={NewName}
+              type="text"
+              onChange={(e) => setNewName(e.target.value)}
+            />
+            <textarea
+              placeholder="Add your bio here..."
+              value={NewBio}
+              onChange={(e) => setNewBio(e.target.value)}
+              className="px-2 h-[120px] resize-none text-center text-TextBlack bg-transparent outline-none border-2 border-gray-500 rounded-md py-1 w-full"
+            ></textarea>
+            <button
+              onClick={handleSaveChange}
+              className="py-2 w-full rounded-md bg-ButttonBG text-white cursor-pointer font-semibold"
+            >
+              {infosaveLoading ? "Saved" : "Save change"}
+            </button>
             <input
               id="file-upload"
               type="file"
               accept="image/*"
               className="hidden"
               ref={fileInputRef}
-              onChange={handleInputChange}
+              onChange={(e) => handleUpdateProfile(e.target.files[0])}
             />
-          </label>
+          </div>
         </div>
-
-        <button
-          onClick={handleUpdateProfile}
-          disabled={loading || saveLoading}
-          className="bg-ButttonBG py-2 px-4 rounded-xl text-white cursor-pointer"
-        >
-          {saveLoading
-            ? "Updated"
-            : loading
-            ? "Uploading..."
-            : "Update Profile Photo"}
-        </button>
       </div>
+      <div className="text-TextBlack sm:w-[70%] w-full bg-BGGray rounded p-5">Right side</div>
     </div>
   );
 };

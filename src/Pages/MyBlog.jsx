@@ -40,11 +40,11 @@ const MyBlog = () => {
 
   return (
     <>
-      <div className="sm:px-15 px-5 sm:pb-10 pb-0 pt-20 bg-BGWhite">
+      <div className="w-full min-h-screen sm:px-15 px-5 sm:pb-10 pb-0 pt-20 bg-BGWhite">
         <h2 className="text-2xl text-TextBlack font-semibold pb-5">
           All My Blogs
         </h2>
-        <div className="w-full flex sm:flex-row flex-col justify-between sm:gap-7 gap-5 flex-wrap mb-5">
+        <div className="w-full flex sm:flex-row flex-col justify-between sm:gap-7 gap-5 flex-wrap mb-5 page-enter-animation">
           {BLogs?.map((item) => (
             <div
               onClick={() => handleClick(item)}
