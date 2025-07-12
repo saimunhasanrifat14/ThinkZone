@@ -1,9 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../Context/UserContext";
-import { getDatabase, ref, update } from "firebase/database";
+import { getDatabase, onValue, ref, update } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import useUploadCloudinary from "../Hooks/useCloudinaryUpload";
 import { MdCreate } from "react-icons/md";
+import { FaLongArrowAltRight } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { formatCustomDate } from "../Utils/dateUtils";
+import { useDispatch } from "react-redux";
+import { setSelectedBlog } from "../Features/Slices/blogSlice";
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -20,6 +25,34 @@ const Profile = () => {
   const [NewBio, setNewBio] = useState("");
   const [infosaveLoading, setinfosaveLoading] = useState(false);
   const [err, seterr] = useState(false);
+  const [BLogs, setBlog] = useState([]);
+  const [blogloading, setblogLoading] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchData = () => {
+      setblogLoading(true);
+      const userRef = ref(db, "blogs/");
+      onValue(userRef, (snapshot) => {
+        let data = [];
+        snapshot.forEach((item) => {
+          if (auth.currentUser.uid === item.val().uploaderUid) {
+            data.push({ ...item.val(), BLogkey: item.key });
+          }
+        });
+        setBlog(data.slice().reverse());
+        setblogLoading(false);
+      });
+    };
+
+    fetchData();
+  }, []);
+
+  const handleClick = (item) => {
+    dispatch(setSelectedBlog(item));
+    navigate("/rootlayout/blogdetails");
+  };
 
   useEffect(() => {
     if (user) {
@@ -95,12 +128,12 @@ const Profile = () => {
               onClick={() =>
                 fileInputRef.current && fileInputRef.current.click()
               }
-              className=" absolute sm:right-28 right-18 sm:top-4 top-4 p-2 text-xl rounded-full bg-ButttonBG text-white cursor-pointer"
+              className=" absolute sm:right-28 right-20 sm:top-4 top-3 p-2 sm:text-xl text-sm rounded-full bg-ButttonBG text-white cursor-pointer"
             >
               <MdCreate />
             </span>
             <input
-              className="px-2 text-center text-3xl font-bold text-TextBlack bg-transparent outline-none border-2 border-gray-500 rounded-md py-1 w-full"
+              className="px-2 text-center text-3xl font-bold text-TextBlack bg-transparent outline-none border-2 border-GrayBorder rounded-md py-1 w-full"
               value={NewName}
               type="text"
               onChange={(e) => setNewName(e.target.value)}
@@ -109,7 +142,7 @@ const Profile = () => {
               placeholder="Add your bio here..."
               value={NewBio}
               onChange={(e) => setNewBio(e.target.value)}
-              className="px-2 h-[120px] resize-none text-center text-TextBlack bg-transparent outline-none border-2 border-gray-500 rounded-md py-1 w-full"
+              className="px-2 h-[120px] resize-none text-center text-TextBlack bg-transparent outline-none border-2 border-GrayBorder rounded-md py-1 w-full"
             ></textarea>
             <button
               onClick={handleSaveChange}
@@ -128,7 +161,44 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <div className="text-TextBlack sm:w-[70%] w-full bg-BGGray rounded p-5">Right side</div>
+      <div className="text-TextBlack sm:w-[70%] w-full bg-BGGray rounded p-5">
+        <h2 className="sm:text-2xl text-xl text-TextBlack font-semibold pb-5">My Blogs</h2>
+        <div className="w-full flex sm:flex-row flex-col justify-between sm:gap-7 gap-5 flex-wrap page-enter-animation">
+          {BLogs?.slice(0, 6).map((item) => (
+            <div className="sm:w-[31%] w-full bg-BGGray rounded-xl cursor-pointer">
+              <div className="w-full sm:h-[245px] h-[200px] relative">
+                <img
+                  className="w-full h-full object-cover"
+                  src={item.blogBennar}
+                  alt=""
+                />
+                <div
+                  onClick={() => handleClick(item)}
+                  className="flex flex-col justify-end p-3 gap-1 absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black"
+                >
+                  <h3 className="sm:text-xl text-[18px] font-bold text-white line-clamp-1">
+                    {item.blogTitle}
+                  </h3>
+                  <p className="text-xs text-gray-400 line-clamp-2">
+                    {item.blogMessage}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+          <div className="w-full flex justify-center">
+            <Link
+              to={"/rootlayout/myblog"}
+              className="py-2 px-4 bg-ButttonBG rounded-md text-white flex items-center gap-2"
+            >
+              Show More{" "}
+              <span className="mt-1">
+                <FaLongArrowAltRight />
+              </span>
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
