@@ -73,7 +73,6 @@ const SignUp = () => {
       });
       setloading(false);
       navigate("/EmailVarification");
-      alert("please chack your email");
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
         seterror("auth/email-already-in-use");

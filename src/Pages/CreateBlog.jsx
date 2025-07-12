@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import TemplateOneImage from "../assets/TemplateOne.png";
 const CreateBlog = () => {
+  const handleclick = () => {
+    alert("We working on this tamplate Please use tamplate one");
+  };
   return (
     <>
       <div className="w-full min-h-screen bg-BGWhite sm:px-15 px-5 pt-20">
@@ -30,12 +33,12 @@ const CreateBlog = () => {
               <p className="text-sm text-TextGray mb-4">
                 A simple and elegant template for your blog.
               </p>
-              <Link
-                to={"/rootlayout/templatetwo"}
+              <button
+                onClick={handleclick}
                 className="inline-block bg-TextDateColor text-white px-4 py-2 rounded hover:bg-black transition-colors"
               >
                 Use This Template
-              </Link>
+              </button>
             </div>
           </div>
         </div>

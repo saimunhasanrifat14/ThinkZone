@@ -59,7 +59,6 @@ const Login = () => {
         navigate("/EmailVarification");
       }
     } catch (error) {
-      console.error("Login error:", error);
       if (error.code === "auth/network-request-failed") {
         seterror("Network error! try again.");
       } else if (error.code === "auth/invalid-email") {

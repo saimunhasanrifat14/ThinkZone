@@ -120,12 +120,12 @@ const TemplateOne = () => {
             }
             alt="blog banner"
           />
-          <div className="absolute inset-0 bg-[#0000007b] bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+          <div className="absolute inset-0 bg-opacity-40 sm:opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
             <label
               htmlFor="bannerUpload"
-              className="bg-white text-black px-4 py-2 cursor-pointer font-semibold"
+              className="bg-[#00000098] text-white sm:px-4 sm:py-2 w-full h-full flex items-center justify-center cursor-pointer font-semibold"
             >
-              Replace Banner
+              Change Banner
             </label>
             <input
               id="bannerUpload"
